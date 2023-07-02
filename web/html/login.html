@@ -4,43 +4,47 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-
+		<link rel="stylesheet" href="../css/login.css" />
 		<script src="
     https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
     "></script>
 		<script src="../js/login.js" defer></script>
 	</head>
 	<body>
-		<h3>Log in</h3>
-		<form>
-			<label for="name">Name</label>
-			<input
-				type="text"
-				name="name"
-				id="name"
-				placeholder="Tipe your username"
-				required
-			/>
+		<main>
+			<div class="container">
+				<h1>Log in</h1>
+				<form>
+					<label for="name">Name</label>
+					<input
+						type="text"
+						name="name"
+						id="name"
+						placeholder="Tipe your username"
+						required
+					/>
 
-			<label for="email">Email</label>
-			<input
-				type="text"
-				name="email"
-				id="email"
-				placeholder="Tipe your email"
-				required
-			/>
+					<label for="email">Email</label>
+					<input
+						type="text"
+						name="email"
+						id="email"
+						placeholder="Tipe your email"
+						required
+					/>
 
-			<label for="password">Password</label>
-			<input
-				placeholder="Type your password"
-				type="password"
-				name="password"
-				id="password"
-			/>
-			<button>Log in</button>
-		</form>
+					<label for="password">Password</label>
+					<input
+						placeholder="Type your password"
+						type="password"
+						name="password"
+						id="password"
+					/>
+					<button>Log in</button>
+				</form>
 
-		<a href="register.html">Don't have an account?</a>
+				<a href="register.html">Don't have an account?</a>
+			</div>
+		</main>
 	</body>
 </html>

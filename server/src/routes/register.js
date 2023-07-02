@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
     return res.status(201).json({ token });
   } catch (err) {
     console.log(err);
-    return res.status(500).end;
+    return res.status(400).send({ Error: "Mistake in registration" });
   }
 });
 
