@@ -3,6 +3,7 @@ const token = Cookies.get('token');
 if (!token) {
 	window.location.replace('./login.html');
 }
+
 const API_BASE = 'http://localhost:8080';
 
 document.addEventListener('DOMContentLoaded', async (e) => {
@@ -31,11 +32,11 @@ console.log(container);
 const renderGroups = (groups) => {
 	container.replaceChildren('');
 	groups.forEach((iteam) => {
-		const a = document.createElement('a');
+		const a = document.createElement('button');
 		const p1 = document.createElement('p');
 		const p2 = document.createElement('p');
 
-		p1.textContent = iteam.group_id;
+		p1.textContent = `id:${iteam.group_id}`;
 		p2.textContent = iteam.name;
 		a.className = 'groupContainer';
 		p1.className = 'id';
@@ -46,10 +47,10 @@ const renderGroups = (groups) => {
 		a.addEventListener('click', (e) => {
 			document.cookie = `group=${iteam.group_id}`;
 			console.log(iteam.group_id);
-			a.href = '../html/bills.html';
+			window.location.replace('../html/bills.html');
 		});
 
-		a.append(p1, p2);
+		a.append(p2, p1);
 		container.append(a);
 	});
 };
@@ -81,25 +82,26 @@ form.addEventListener('submit', async (e) => {
 	};
 	await addGroup(payload);
 	await getUserGroups();
+	e.target.groupID.value = '';
 });
 
 const form2 = document.querySelector('#create');
 
 form2.addEventListener('submit', async (e) => {
 	e.preventDefault();
-	const groupName = document.querySelector('#groupName').value;
+	let groupName = document.querySelector('#groupName').value;
 	payload = {
 		name: groupName,
 	};
 
 	const addedGroup = await postToGroups(payload);
-	console.log(addedGroup.insertId);
+
 	const payloadAccount = {
 		group_id: await addedGroup.insertId,
 	};
-	console.log(payloadAccount);
 	await postToAccounts(payloadAccount);
 	await getUserGroups();
+	document.querySelector('#groupName').value = '';
 });
 
 const postToGroups = async (payload) => {

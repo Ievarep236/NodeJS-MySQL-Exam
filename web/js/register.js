@@ -11,10 +11,9 @@ const registerUser = async (payload) => {
 			},
 			body: JSON.stringify(payload),
 		});
-
 		return await response.json();
 	} catch (err) {
-		return Promise.reject();
+		console.log(err);
 	}
 };
 
@@ -29,6 +28,7 @@ form.addEventListener('submit', async (event) => {
 	};
 
 	const data = await registerUser(payload);
+	console.log(data);
 
 	if (data.token) {
 		Cookies.set('token', data.token);

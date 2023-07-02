@@ -2,13 +2,13 @@ const token = Cookies.get('token');
 const group = Cookies.get('group');
 console.log(group);
 
-document.addEventListener('DOMContentLoaded', async (e) => {
-	await getGroupBills();
-});
-
 if (!token) {
 	window.location.replace('./login.html');
 }
+
+document.addEventListener('DOMContentLoaded', async (e) => {
+	await getGroupBills();
+});
 
 const API_BASE = 'http://localhost:8080';
 
@@ -31,18 +31,29 @@ const table = document.querySelector('table');
 
 const renderBills = (data) => {
 	table.replaceChildren('');
+	const firsTr = document.createElement('tr');
+	const fisridTh = document.createElement('th');
+	const firsdescription = document.createElement('th');
+	const firstamount = document.createElement('th');
+
+	fisridTh.textContent = 'id';
+	firsdescription.textContent = 'Descrition';
+	firstamount.textContent = 'Amount';
+
+	firsTr.append(fisridTh, firsdescription, firstamount);
+	table.append(firsTr);
 
 	data.forEach((iteam) => {
 		const tr = document.createElement('tr');
-		const idTh = document.createElement('th');
-		const descritionTh = document.createElement('th');
-		const amountTh = document.createElement('th');
+		const idTd = document.createElement('td');
+		const descritionTd = document.createElement('td');
+		const amountTd = document.createElement('td');
 
-		idTh.textContent = iteam.id;
-		descritionTh.textContent = iteam.description;
-		amountTh.textContent = `${iteam.amount} €`;
+		idTd.textContent = iteam.id;
+		descritionTd.textContent = iteam.description;
+		amountTd.textContent = `${iteam.amount} €`;
 
-		tr.append(idTh, descritionTh, amountTh);
+		tr.append(idTd, descritionTd, amountTd);
 		table.append(tr);
 	});
 };
@@ -53,6 +64,7 @@ const addBill = async (payload) => {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				Authorization: `Bearer ${Cookies.get('token')}`,
 			},
 			body: JSON.stringify(payload),
 		});
@@ -84,4 +96,8 @@ form.addEventListener('submit', async (e) => {
 document.getElementById('logOut').addEventListener('click', () => {
 	Cookies.remove('token');
 	window.location.replace('../html/login.html');
+});
+
+document.getElementById('goBack').addEventListener('click', () => {
+	window.location.replace('../html/groups.html');
 });

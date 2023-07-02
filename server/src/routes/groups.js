@@ -9,7 +9,7 @@ const dbPool = mysql.createPool(DB_CONFIG);
 
 router.get("/", authenticate, async (req, res) => {
   try {
-    const [data] = await dbPool.execute("SELECT * FROM groupss");
+    const [data] = await dbPool.execute("SELECT * FROM groups");
     console.log(data);
     res.status(201).send(data);
   } catch (err) {
@@ -21,10 +21,9 @@ router.get("/", authenticate, async (req, res) => {
 router.post("/", authenticate, async (req, res) => {
   const payload = req.body;
   try {
-    const [data] = await dbPool.execute(
-      "INSERT INTO groupss (name) VALUES(?)",
-      [payload.name],
-    );
+    const [data] = await dbPool.execute("INSERT INTO groups (name) VALUES(?)", [
+      payload.name,
+    ]);
     res.status(201).send(data);
   } catch (err) {
     console.group(err);

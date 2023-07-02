@@ -2,11 +2,12 @@ const express = require("express");
 const mysql = require("mysql2/promise");
 const DB_CONFIG = require("../db-config");
 const { route } = require("./register");
+const { authenticate } = require("../middleware");
 
 const router = express.Router();
 const dbPool = mysql.createPool(DB_CONFIG);
 
-router.get("/:group_id", async (req, res) => {
+router.get("/:group_id", authenticate, async (req, res) => {
   try {
     const [data] = await dbPool.execute(
       "SELECT * FROM bills WHERE group_id = ?",
@@ -18,7 +19,7 @@ router.get("/:group_id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authenticate, async (req, res) => {
   let payload = req.body;
   try {
     const [data] = await dbPool.execute(
