@@ -11,7 +11,7 @@ router.post("/", authenticate, async (req, res) => {
   let payload = req.body;
   try {
     const [data] = await dbPool.execute(
-      "INSERT INTO accounts (group_id, user_id) VALUES (?,?)",
+      "INSERT INTO accounts (groups_id, user_id) VALUES (?,?)",
       [payload.group_id, req.user.id],
     );
     res.status(201).send(data);
@@ -24,7 +24,7 @@ router.post("/", authenticate, async (req, res) => {
 router.get("/", authenticate, async (req, res) => {
   try {
     const [data] = await dbPool.execute(
-      "SELECT group_id, name FROM accounts JOIN groupss on groupss.id = accounts.group_id WHERE user_id = ?",
+      "SELECT * FROM accounts JOIN groupss on groupss.id = accounts.groups_id WHERE user_id = ?",
       [req.user.id],
     );
     res.status(201).send(data);
@@ -35,3 +35,5 @@ router.get("/", authenticate, async (req, res) => {
 });
 
 module.exports = router;
+
+// "SELECT group_id, name FROM accounts JOIN groups on groups.id = accounts.group_id WHERE user_id = ?",
