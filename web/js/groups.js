@@ -102,7 +102,7 @@ form2.addEventListener('submit', async (e) => {
 	await getUserGroups();
 });
 
-const postToGroups = async (groupName) => {
+const postToGroups = async (payload) => {
 	try {
 		const response = await fetch(`${API_BASE}/groups`, {
 			method: 'POST',
@@ -110,7 +110,7 @@ const postToGroups = async (groupName) => {
 				Authorization: `Bearer ${Cookies.get('token')}`,
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(groupName),
+			body: JSON.stringify(payload),
 		});
 
 		return await response.json();

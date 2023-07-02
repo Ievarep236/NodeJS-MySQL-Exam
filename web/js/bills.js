@@ -40,7 +40,7 @@ const renderBills = (data) => {
 
 		idTh.textContent = iteam.id;
 		descritionTh.textContent = iteam.description;
-		amountTh.textContent = iteam.amount;
+		amountTh.textContent = `${iteam.amount} €`;
 
 		tr.append(idTh, descritionTh, amountTh);
 		table.append(tr);
