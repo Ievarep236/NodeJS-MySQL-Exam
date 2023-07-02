@@ -4,7 +4,6 @@ const DB_CONFIG = require("../db-config");
 const Joi = require("joi");
 const bcript = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const userScemaInport = require("../scema");
 
 const router = express.Router();
 const pool = mysql.createPool(DB_CONFIG);
@@ -13,7 +12,12 @@ router.get("/", (req, res) => {
   res.send("veikia");
 });
 
-const userScema = userScemaInport;
+const userScema = Joi.object({
+  full_name: Joi.string().trim().required(),
+  email: Joi.string().email().trim().lowercase().required(),
+  password: Joi.string().required(),
+  repeatedPassword: Joi.string().required(),
+});
 
 router.post("/", async (req, res) => {
   let payload = req.body;
@@ -21,7 +25,11 @@ router.post("/", async (req, res) => {
     payload = await userScema.validateAsync(payload);
   } catch (err) {
     console.log(err);
-    return res.status(400).send({ Error: "Mistake in registration " });
+    return res.status(400).send({ Error: "Mistake in registration" });
+  }
+
+  if (!(payload.password === payload.repeatedPassword)) {
+    return res.status(400).send({ Error: "Passwords don't match " });
   }
 
   try {

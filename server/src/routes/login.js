@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
     payload = await userScema.validateAsync(payload);
   } catch (err) {
     console.log(err);
-    return res.status(400).send({ Error: "Password or email wrong1" });
+    return res.status(400).send({ Error: "Password or email wrong" });
   }
 
   try {
@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
     ]);
 
     if (!data.length) {
-      return res.status(400).send({ Error: "Password or email wrong2" });
+      return res.status(400).send({ Error: "Password or email wrong" });
     }
 
     const passwordmaching = await bcript.compare(
@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
       );
       return res.status(200).send({ token });
     } else {
-      return res.status(400).send({ Error: "Password or email wrong3" });
+      return res.status(400).send({ Error: "Password or email wrong" });
     }
   } catch (err) {
     console.log(err);

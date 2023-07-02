@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="
+    https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
+    "></script>
+		<script src="../js/groups.js" defer></script>
+	</head>
+	<body>
+		<h1>Select group</h1>
+		<section id="groups">
+			<!-- <div class="groupContainer">
+				<p class="id">jnjn</p>
+				<p class="id">nkn</p>
+			</div> -->
+		</section>
+		<h3>Add group</h3>
+		<form id="add">
+			<label for="groupID">Group ID</label>
+			<input
+				type="text"
+				name="groupID"
+				id="groupID"
+				placeholder="Tipe groupID"
+				required
+			/>
+			<button>Add</button>
+		</form>
+		<h3>Create group</h3>
+		<form id="create">
+			<label for="groupName">Group Name</label>
+			<input
+				type="text"
+				name="groupName"
+				id="groupName"
+				placeholder="Group Name"
+				required
+			/>
+			<button type="submit">Add</button>
+		</form>
+		<button id="logOut">Log_out</button>
+	</body>
+</html>
