@@ -36,7 +36,7 @@ const renderGroups = (groups) => {
 		const p1 = document.createElement('p');
 		const p2 = document.createElement('p');
 
-		p1.textContent = `id:${iteam.group_id}`;
+		p1.textContent = `id:${iteam.groups_id}`;
 		p2.textContent = iteam.name;
 		a.className = 'groupContainer';
 		p1.className = 'id';
@@ -45,7 +45,7 @@ const renderGroups = (groups) => {
 		console.log(iteam.group_id);
 
 		a.addEventListener('click', (e) => {
-			document.cookie = `group=${iteam.group_id}`;
+			document.cookie = `group=${iteam.groups_id}`;
 			console.log(iteam.group_id);
 			window.location.replace('../html/bills.html');
 		});
