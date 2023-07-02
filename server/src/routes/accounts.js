@@ -7,28 +7,30 @@ const { authenticate } = require("../middleware");
 const router = express.Router();
 const dbPool = mysql.createPool(DB_CONFIG);
 
-router.get("/", authenticate, async (req, res) => {
-  try {
-    const [data] = await dbPool.execute("SELECT * FROM groupss");
-    console.log(data);
-    res.status(201).send(data);
-  } catch (err) {
-    console.log(err);
-    res.status(500).end;
-  }
-});
-
 router.post("/", authenticate, async (req, res) => {
-  const payload = req.body;
+  let payload = req.body;
   try {
     const [data] = await dbPool.execute(
-      "INSERT INTO groupss (name) VALUES(?)",
-      [payload.name],
+      "INSERT INTO accounts (group_id, user_id) VALUES (?,?)",
+      [payload.group_id, req.user.id],
     );
     res.status(201).send(data);
   } catch (err) {
-    console.group(err);
-    res.status(500).end;
+    console.log(err);
+    res.status(400).end;
+  }
+});
+
+router.get("/", authenticate, async (req, res) => {
+  try {
+    const [data] = await dbPool.execute(
+      "SELECT group_id, name FROM accounts JOIN groupss on groupss.id = accounts.group_id WHERE user_id = ?",
+      [req.user.id],
+    );
+    res.status(201).send(data);
+  } catch (err) {
+    console.log(err);
+    res.status(400).end;
   }
 });
 

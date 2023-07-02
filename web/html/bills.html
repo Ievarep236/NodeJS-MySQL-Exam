@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script src="
+    https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
+    "></script>
+		<script src="../js/bills.js" defer></script>
+	</head>
+	<body>
+		<h1>Groups's bills:</h1>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Descrition</th>
+				<th>Amount</th>
+			</tr>
+		</table>
+		<h3>Add bill</h3>
+		<form>
+			<label for="amount">Amount</label>
+			<input
+				type="number"
+				name="amount"
+				id="amount"
+				placeholder="amount"
+				required
+			/>
+			<label for="descrition">Descrition</label>
+			<input
+				type="text"
+				name="descrition"
+				id="descrition"
+				placeholder="descrition"
+				required
+			/>
+			<button type="submit">Add</button>
+		</form>
+		<button id="logOut">Log_out</button>
+	</body>
+</html>
